@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.0'
-gem 'sqlite3'
+gem 'pg'
 gem 'rdiscount'
 gem 'stringex', :git => 'git://github.com/rsl/stringex.git'
 gem 'kaminari'
