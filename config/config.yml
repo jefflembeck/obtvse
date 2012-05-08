@@ -4,6 +4,6 @@ login:               <%= ENV["obtvse_login"] ? ENV["obtvse_login"] : "username" 
 password:            <%= ENV["obtvse_password"] ? ENV["obtvse_password"] : "password" %>
 name:                Jeff Lembeck
 twitter:             jefflembeck
-github:              http://github.com/jlembeck
+github:              jlembeck
 email:               jlembeck@gmail.com
 google_analytics_id: YOUR_GA_ID
