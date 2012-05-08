@@ -1,12 +1,9 @@
-require 'rdiscount'
-
 class PostsController < ApplicationController
-  before_filter :authenticate, except: [:index, :show]
+  before_filter :authenticate, :except => [:index, :show]
   layout :choose_layout
 
   def index
-    @posts = Post.page(params[:page]).per(20)
-    @posts = @posts.where(draft:false) if !session[:admin]
+    @posts = Post.page(params[:page]).per(10).where(draft:false)
 
     respond_to do |format|
       format.html
@@ -15,11 +12,19 @@ class PostsController < ApplicationController
     end
   end
 
+  def preview
+    @post = Post.new(params[:post])
+    @preview = true
+    respond_to do |format|
+      format.html { render 'show' }
+    end
+  end
+
   def admin
     @no_header = true
     @post = Post.new
-    @published = Post.where(draft:false).page(params[:page]).per(20)
-    @drafts = Post.where(draft:true).page(params[:page_draft]).per(20)
+    @published = Post.where(draft:false).page(params[:post_page]).per(20)
+    @drafts = Post.where(draft:true).page(params[:draft_page]).per(20)
 
     respond_to do |format|
       format.html
@@ -27,13 +32,16 @@ class PostsController < ApplicationController
   end
 
   def show
-    @show = true
-    no_drafts = !session[:admin] ? true : false
-    @post = Post.find_by_slug(params[:slug])
+    @single_post = true
+    @post = admin? ? Post.find_by_slug(params[:slug]) : Post.find_by_slug_and_draft(params[:slug],false)
 
     respond_to do |format|
-      format.html
-      format.xml { render :xml => @post }
+      if @post.present?
+        format.html
+        format.xml { render :xml => @post }
+      else
+        format.any { head status: :not_found  }
+      end
     end
   end
 
@@ -93,11 +101,16 @@ class PostsController < ApplicationController
 
   private
 
+  def admin?
+    session[:admin] == true
+  end
+
   def choose_layout
-    if ['admin', 'new', 'edit'].include? action_name
+    if ['admin', 'new', 'edit', 'create'].include? action_name
       'admin'
     else
       'application'
     end
   end
 end
+

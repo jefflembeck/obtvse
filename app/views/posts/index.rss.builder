@@ -3,13 +3,13 @@ xml.rss :version => "2.0" do
   xml.channel do
     xml.title CONFIG['title']
     xml.description CONFIG['tagline']
-    xml.link CONFIG['url']
+    xml.link root_url
 
     for post in @posts
       xml.item do
         xml.title post.title
         if post.content
-          xml.description RDiscount.new(post.content).to_html
+          xml.description markdown(post.content).to_html
         else
           xml.description "No content"
         end

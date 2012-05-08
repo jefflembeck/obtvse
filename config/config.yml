@@ -1,9 +1,9 @@
-title: Jeff Lembeck learns a code or two
-url: http://jefflembeck.com
-name: Jeff Lembeck
-tagline: Serious code business!
-twitter: jefflembeck
-github: http://github.com/jlembeck
-email: jlembeck@gmail.com
-login: jlembeck
-password: ch0c01473
+title:               Jeff Lembeck learns a code or two
+tagline:             Serious code business!
+login:               <%= ENV["obtvse_login"] ? ENV["obtvse_login"] : "username" %>
+password:            <%= ENV["obtvse_password"] ? ENV["obtvse_password"] : "password" %>
+name:                Jeff Lembeck
+twitter:             jefflembeck
+github:              http://github.com/jlembeck
+email:               jlembeck@gmail.com
+google_analytics_id: YOUR_GA_ID
