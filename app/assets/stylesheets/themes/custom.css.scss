@@ -1,1 +1,19 @@
 /* Insert your custom theme here */
+@media (max-width: 480px) {
+  header{
+    position: relative;
+    width: 100%;
+  }
+
+  .powered-by{
+    position: relative;
+  }
+
+  #container{
+    margin-left: 0px;
+  }
+
+  .contain{
+    width: 100%;
+  }
+}
